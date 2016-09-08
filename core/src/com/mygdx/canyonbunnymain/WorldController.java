@@ -106,7 +106,7 @@ public class WorldController extends InputAdapter {
             Gdx.app.debug(TAG, "Game world resetted");
         } else if (keycode == Input.Keys.SPACE) {             //select next sprite
 
-            selectedSprited = (selectedSprited + 1) % testSprites.length;
+            //selectedSprited = (selectedSprited + 1) % testSprites.length;
             Gdx.app.debug(TAG, "Sprite #" + selectedSprited + "selected");
         }
         return false;
