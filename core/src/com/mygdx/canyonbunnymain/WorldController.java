@@ -1,5 +1,9 @@
 package com.mygdx.canyonbunnymain;
 
+import com.badlogic.gdx.Application;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -8,7 +12,7 @@ import com.badlogic.gdx.math.MathUtils;
 /**
  * Created by imran on 9/7/2016.
  */
-public class WorldController {
+public class WorldController extends InputAdapter{
 
     public Sprite[] testSprites;
     public int selectedSprited;
@@ -20,6 +24,7 @@ public class WorldController {
     }
 
     private void init() {
+        Gdx.input.setInputProcessor(this);
         initTestObjects();
 
     }
@@ -27,7 +32,7 @@ public class WorldController {
 
     public void initTestObjects() {
         // Create new array for 5 sprites
-        testSprites = new Sprite[50];
+        testSprites = new Sprite[5];
         // Create empty POT-sized Pixmap with 8 bit RGBA pixel data
         int width = 32;
         int height = 32;
@@ -61,7 +66,24 @@ public class WorldController {
     }
 
     public void update(float deltaTime) {
+        handleDebugInput(deltaTime);
         updateTestObjects(deltaTime);
+    }
+
+    private void handleDebugInput(float deltaTime) {
+        if (Gdx.app.getType() != Application.ApplicationType.Android) return;
+        // Selected Sprite Controls
+        float sprMoveSpeed = 5 * deltaTime;
+        if (Gdx.input.isKeyPressed(Input.Keys.A)) moveSelectedSprite(-sprMoveSpeed, 0);
+        if (Gdx.input.isKeyPressed(Input.Keys.D)) moveSelectedSprite(sprMoveSpeed, 0);
+        if (Gdx.input.isKeyPressed(Input.Keys.W)) moveSelectedSprite(0, (int) sprMoveSpeed);
+        if (Gdx.input.isKeyPressed(Input.Keys.S))moveSelectedSprite(0, (int) -sprMoveSpeed);
+
+
+    }
+
+    private void moveSelectedSprite(float x, int y) {
+        testSprites[selectedSprited].translate(x, y);
     }
 
 
@@ -76,5 +98,20 @@ public class WorldController {
         testSprites[selectedSprited].setRotation(rotation);
     }
 
+    @Override
+    public boolean keyUp(int keycode) {
+        //reset game world
+        if (keycode==Input.Keys.R){
+            init();
+            Gdx.app.debug(TAG, "Game world resetted");
+        }else if (keycode==Input.Keys.SPACE){             //select next sprite
 
+            selectedSprited = (selectedSprited + 1)%testSprites.length;
+            Gdx.app.debug(TAG, "Sprite #" + selectedSprited + "selected");
+        }
+        return false;
+
+
+
+    }
 }
