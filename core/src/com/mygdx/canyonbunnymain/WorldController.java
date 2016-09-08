@@ -12,7 +12,7 @@ import com.badlogic.gdx.math.MathUtils;
 /**
  * Created by imran on 9/7/2016.
  */
-public class WorldController extends InputAdapter{
+public class WorldController extends InputAdapter {
 
     public Sprite[] testSprites;
     public int selectedSprited;
@@ -71,13 +71,13 @@ public class WorldController extends InputAdapter{
     }
 
     private void handleDebugInput(float deltaTime) {
-        if (Gdx.app.getType() != Application.ApplicationType.Android) return;
+        if (Gdx.app.getType() != Application.ApplicationType.Desktop) return;
         // Selected Sprite Controls
         float sprMoveSpeed = 5 * deltaTime;
         if (Gdx.input.isKeyPressed(Input.Keys.A)) moveSelectedSprite(-sprMoveSpeed, 0);
         if (Gdx.input.isKeyPressed(Input.Keys.D)) moveSelectedSprite(sprMoveSpeed, 0);
         if (Gdx.input.isKeyPressed(Input.Keys.W)) moveSelectedSprite(0, (int) sprMoveSpeed);
-        if (Gdx.input.isKeyPressed(Input.Keys.S))moveSelectedSprite(0, (int) -sprMoveSpeed);
+        if (Gdx.input.isKeyPressed(Input.Keys.S)) moveSelectedSprite(0, (int) -sprMoveSpeed);
 
 
     }
@@ -101,16 +101,15 @@ public class WorldController extends InputAdapter{
     @Override
     public boolean keyUp(int keycode) {
         //reset game world
-        if (keycode==Input.Keys.R){
+        if (keycode == Input.Keys.R) {
             init();
             Gdx.app.debug(TAG, "Game world resetted");
-        }else if (keycode==Input.Keys.SPACE){             //select next sprite
+        } else if (keycode == Input.Keys.SPACE) {             //select next sprite
 
-            selectedSprited = (selectedSprited + 1)%testSprites.length;
+            selectedSprited = (selectedSprited + 1) % testSprites.length;
             Gdx.app.debug(TAG, "Sprite #" + selectedSprited + "selected");
         }
         return false;
-
 
 
     }
