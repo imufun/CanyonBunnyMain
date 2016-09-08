@@ -5,8 +5,6 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 
-import sun.rmi.runtime.Log;
-
 public class CanyonBunnyMain extends ApplicationAdapter {
 
 
@@ -27,25 +25,6 @@ public class CanyonBunnyMain extends ApplicationAdapter {
 
     }
 
-    @Override
-    public void dispose() {
-
-    }
-
-    @Override
-    public void resize(int width, int height) {
-        worldRenderer.resize(width, height);
-    }
-
-    @Override
-    public void resume() {
-        paused = false;
-    }
-
-    @Override
-    public void pause() {
-        paused = true;
-    }
 
     @Override
     public void render() {
@@ -55,7 +34,7 @@ public class CanyonBunnyMain extends ApplicationAdapter {
             // Update game world by the time that has passed
             // since last rendered frame.
             worldController.update(Gdx.graphics.getDeltaTime());
-            
+
         }
         // Sets the clear screen color to: Cornflower Blue
         Gdx.gl.glClearColor(0x64 / 255.0f, 0x95 / 255.0f, 0xed / 255.0f, 0xff / 255.0f);
@@ -64,6 +43,27 @@ public class CanyonBunnyMain extends ApplicationAdapter {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         worldRenderer.render();
 
+    }
+
+    @Override
+    public void resize(int width, int height) {
+        worldRenderer.resize(width, height);
+    }
+
+
+    @Override
+    public void pause() {
+        paused = true;
+    }
+
+    @Override
+    public void resume() {
+        paused = false;
+    }
+
+    @Override
+    public void dispose() {
+        worldRenderer.dispose();
     }
 
 
