@@ -45,6 +45,7 @@ public class WorldRenderer implements Disposable {
     }
 
     public void renderTestObject() {
+        worldController.cameraHelper.applyTo(camera); // custome camerahelder added
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
         for (Sprite sprite : worldController.testSprites) {
