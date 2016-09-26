@@ -10,8 +10,11 @@ public class DesktopLauncher {
     private static boolean rebuilAtls = true;
     private static boolean drawDebugOutLin = true;
 
+
     public static void main(String[] arg) {
         if (rebuilAtls) {
+// delete the packed file first if exists
+
             TexturePacker.Settings settings = new TexturePacker.Settings();
             //The maxWidth and maxHeight variables of the Settings instance define the maximum dimensions (in pixels) for the texture atlas.
             // Always make sure that a single subimage does not exceed the maximum size of the atlas either in the width or height or both dimensions.
@@ -21,7 +24,9 @@ public class DesktopLauncher {
             settings.debug = drawDebugOutLin;
             //We use the drawDebugOutline variable to set the value to debug. The static variables rebuildAtlas and drawDebugOutline are
             // there just for our convenience to make these two behavior controls stand out a bit more because we usually change these variables every now and then while debugging our game
-            TexturePacker.process(settings, "images", "../android/assets/images", "canyonbunny.pack");
+            // TexturePacker.process(settings, "assets-raw/images", "../android/assets/images", "canyonbunny.pack");
+            TexturePacker.process(settings, "desktop/assets-raw/images", "../android/assets/images", "canyonbunny");
+
 
         }
 

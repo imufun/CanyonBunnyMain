@@ -7,7 +7,9 @@ import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.utils.Array;
 
 /**
  * Created by imran on 9/7/2016.
@@ -36,6 +38,13 @@ public class WorldController extends InputAdapter {
         // Create new array for 5 sprites
         testSprites = new Sprite[5];
         // Create empty POT-sized Pixmap with 8 bit RGBA pixel data
+
+        Array<TextureRegion> regions = new Array<TextureRegion>();
+        regions.add(Assets.instance.bunny.head);
+        regions.add(Assets.instance.feather.feathr);
+        regions.add(Assets.instance.goldCoin.goldCoin);
+        // Create new sprites using a random texture region
+
         int width = 32;
         int height = 32;
         Pixmap pixmap = createProceduralPixmap(width, height);

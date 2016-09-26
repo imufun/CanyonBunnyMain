@@ -3,10 +3,12 @@ package com.mygdx.canyonbunnymain;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL20;
 
 public class CanyonBunnyMain extends ApplicationAdapter {
 
+    private Assets assets;
 
     private static final String TAG = CanyonBunnyMain.class.getName();
     private WorldController worldController;
@@ -16,9 +18,13 @@ public class CanyonBunnyMain extends ApplicationAdapter {
 
     @Override
     public void create() {
+        // assets = new Assets();
         // Set Libgdx log level to DEBUG
         Gdx.app.setLogLevel(Application.LOG_DEBUG);
+        // load assets
+        assets.instance.init(new AssetManager());
         // Initialize controller and rendere
+
         worldController = new WorldController();
         worldRenderer = new WorldRenderer(worldController);
         paused = false;
@@ -58,12 +64,14 @@ public class CanyonBunnyMain extends ApplicationAdapter {
 
     @Override
     public void resume() {
+        Assets.instance.init(new AssetManager());
         paused = false;
     }
 
     @Override
     public void dispose() {
         worldRenderer.dispose();
+        Assets.instance.dispose();
     }
 
 
